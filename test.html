@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Word & Paragraph Counter</title>
+  <link rel="stylesheet" type="text/css" href="c.css">
+</head>
+
+<body>
+  <img id="image" src="w.png" />
+  <div class="container">
+    <textarea placeholder="Enter your text here..."></textarea>
+    <div class="output row">
+      <div>Characters: <span id="characterCount">0</span></div>
+      <div>Words: <span id="wordCount">0</span></div>
+    </div>
+    <div class="output row">
+      <div>Paragraphs: <span id="paragraphCount">0</span></div>
+    </div>
+      </ul>
+    </div>
+  </div>
+  <script>
+  
+  var input = document.querySelectorAll('textarea')[0],
+  characterCount = document.querySelector('#characterCount'),
+  wordCount = document.querySelector('#wordCount'),
+  paragraphCount = document.querySelector('#paragraphCount');
+
+// updating the displayed stats after every keypress
+input.addEventListener('keyup', function() {
+
+  //character counting
+  characterCount.innerHTML = input.value.length;
+  
+// Word counting
+//basically, this regex matches word start and end || hyphens || and for case insensitive
+  var words = input.value.match(/\b[-?(\w+)?]+\b/gi);
+      console.log(words)
+  if (words) {
+    wordCount.innerHTML = words.length;
+  } else {
+    wordCount.innerHTML = 0;
+  }
+
+
+
+  // paragraph count
+  if (words) {
+    // \n$ takes care of empty lines: lines with no characters, and only \n are not paragraphs
+    // and need to be replaced with empty string
+    var paragraphs = input.value.replace(/\n$/gm, '').split(/\n/);
+    paragraphCount.innerHTML = paragraphs.length;
+  } else {
+    paragraphCount.innerHTML = 0;
+  }
+
+  
+});
+
+
+  
+  </script>
+</body>
+
+</html>
